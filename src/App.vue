@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue';
 import { useBooksStore } from '@/stores/books';
 import { useCitiesStore } from '@/stores/cities';
 import BookSearchBoxItem from '@/components/BookSearchBoxItem.vue';
@@ -9,11 +10,19 @@ const citiesStore = useCitiesStore();
 
 const booksStore = useBooksStore();
 const getBookKey = (bookItem: BookEntity) => bookItem.title;
+
+const citiesSearchRef = ref<InstanceType<typeof SearchBox> | null>(null);
+
+onMounted(() => {
+  if (citiesSearchRef.value) {
+    citiesSearchRef.value.focus();
+  }
+});
 </script>
 
 <template>
   <div class="app">
-    <SearchBox :data="citiesStore.cities" placeholder="Search cities" />
+    <SearchBox :data="citiesStore.cities" placeholder="Search cities" ref="citiesSearchRef" />
 
     <SearchBox
       :data="booksStore.books"

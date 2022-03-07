@@ -67,6 +67,10 @@ const handleFocus = () => {
 const handleItemClick = (dataItem: unknown) => {
   window.alert(`You picked: ${JSON.stringify(dataItem)}`);
 };
+
+defineExpose({
+  focus: handleFocus,
+});
 </script>
 
 <template>
